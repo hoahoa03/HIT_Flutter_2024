@@ -27,6 +27,7 @@ class _MainAppState extends State<MainApp> {
   void initState() {
     super.initState();
     questionGenerator = QuestionGenerator.random();
+    timer = Timer.periodic(Duration(seconds: 1), (timer) { });
   }
 
   @override
@@ -101,9 +102,10 @@ class _MainAppState extends State<MainApp> {
                 onPressed: () {
                   setState(() {
                     status = 1;
-                    point = 0;
+
                     time = 8;
                     _play();
+                    point = 0;
                   });
                 },
                 icon: Icon(
@@ -132,6 +134,7 @@ class _MainAppState extends State<MainApp> {
   }
 
   void _play() {
+    if (timer?.isActive == true) timer?.cancel();
     timer = Timer.periodic(Duration(seconds: 1), (Timer timer) {
       setState(() {
         if (time > 0) {
@@ -325,9 +328,9 @@ class _MainAppState extends State<MainApp> {
                     onPressed: () {
                       setState(() {
                         status = 1;
-                        point = 0;
                         time = 8;
                         _play();
+                        point = 0;
                       });
                     },
                     icon: Icon(
